@@ -1,4 +1,5 @@
 require 'heroku/command/base'
+require 'uri'
 
 # manage elephantsql databases
 # 
@@ -24,4 +25,20 @@ class Heroku::Command::ElephantSQL < Heroku::Command::Base
       error "No ElephantSQL database found"
     end
   end
+
+  # elephantsql:pg_dump
+  #
+  # Calls the pg_dump, can use all arguments as pg_dump can
+  #
+  def pg_dump
+    puts "args: #{args}"
+    vars = api.get_config_vars(app).body
+    if url = vars['ELEPHANTSQL_URL']
+      u = URI.parse url
+      exec "PGPASSWORD=#{u.password} pg_dump -h #{u.host} -p #{u.port || 5432} -U #{u.user} -d #{u.path[1..-1]}"
+    else
+      error "No ElephantSQL database found"
+    end
+  end
 end
+
