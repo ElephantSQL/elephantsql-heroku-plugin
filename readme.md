@@ -17,3 +17,4 @@ Upload a database to ElephantSQL:
 
    pg_dump --clean --no-owner --no-acl mydb | heroku elephantsql:psql
 
+
