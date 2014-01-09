@@ -15,6 +15,6 @@ Dump the ElephantSQL database to your local database:
 
 Upload a database to ElephantSQL:
 
-   pg_dump --clean --no-owner --no-acl mydb | heroku elephantsql:psql
+    pg_dump --clean --no-owner --no-acl mydb | heroku elephantsql:psql
 
 For support email support@elephantsql.com
